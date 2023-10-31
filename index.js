@@ -26,6 +26,10 @@ const Enterprise = require('./models/Enterprise')
 //routes
 const UserRoutes = require('./routes/UserRoutes')
 app.use('/user', UserRoutes)
+const AddressRoutes = require('./routes/AddressRoutes')
+app.use('/address', AddressRoutes)
+const EnterpriseRoutes = require('./routes/EnterpriseRoutes')
+app.use('/enterprise', EnterpriseRoutes)
 //connection
 const conn = require('./db/conn')
 conn
