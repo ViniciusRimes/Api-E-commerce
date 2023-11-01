@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 async function createUserToken(user, message, req, res){
     try{
         const token = jwt.sign({
@@ -7,7 +8,8 @@ async function createUserToken(user, message, req, res){
         }, process.env.SECRET)
         res.status(201).json({message: `${message ? message : ''} Você está autenticado!`, token: token})
     }catch(error){
-        res.status(500).json({message: 'Erro em processar a sua solicitação:', error})
+        console.log(error)
+        res.status(500).json({message: 'Erro em processar a sua solicitação:', error: error })
     }
 }
 module.exports = createUserToken

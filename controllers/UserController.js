@@ -42,10 +42,8 @@ module.exports = class UserController{
             isAdmin: isAdmin
         }
         try{
-            const createdUser = await User.create(user)
-            const userId = createdUser.id
-            user.id = userId;
-            await createToken(user, req, res);
+            await User.create(user)
+            res.status(201).json({message: 'Usuário cadastrado!'})
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error})
         }
@@ -68,13 +66,8 @@ module.exports = class UserController{
             res.status(400).json({message: 'Senha incorreta!'})
             return
         }
-        const user = {
-            id: userExists.id,
-            email: email,
-            password: password,
-        }
         try{
-            await createToken(user, req, res)
+            await createToken(userExists, 'Usuário logado!', req, res)
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error})
         }
