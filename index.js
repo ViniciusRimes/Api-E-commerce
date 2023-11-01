@@ -22,6 +22,9 @@ const User = require('./models/User')
 const Address = require('./models/Address')
 const AddressUser = require('./models/AddressUser')
 const Enterprise = require('./models/Enterprise')
+const Product = require('./models/Product')
+const Avaliations = require('./models/Avaliations')
+const CategoryProduct = require('./models/CategoryProduct')
 
 //routes
 const UserRoutes = require('./routes/UserRoutes')
@@ -30,6 +33,8 @@ const AddressRoutes = require('./routes/AddressRoutes')
 app.use('/address', AddressRoutes)
 const EnterpriseRoutes = require('./routes/EnterpriseRoutes')
 app.use('/enterprise', EnterpriseRoutes)
+const ProductRoutes = require('./routes/ProductRoutes')
+app.use('/product', ProductRoutes)
 //connection
 const conn = require('./db/conn')
 conn
