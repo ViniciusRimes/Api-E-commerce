@@ -137,4 +137,12 @@ module.exports = class ProductController{
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})   
         }
     }
+    static async getAllProducts(req, res){
+        try{
+            const productsCatalog = await Product.findAll()
+            res.status(200).json({message: 'Produtos cadastrados', products: productsCatalog})
+        }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error}) 
+        }
+    }
 }
