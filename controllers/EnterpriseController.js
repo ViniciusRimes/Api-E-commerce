@@ -46,6 +46,7 @@ module.exports = class EnterpriseController{
         }
         try{
             await Enterprise.create(enterprise)
+            res.status(201).json({message: 'Empresa cadastrada!'})
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação', error: error})
         }
@@ -69,7 +70,7 @@ module.exports = class EnterpriseController{
             return
         }
         try{
-            await createToken(enterpriseExists, 'Empresa logada!', req, res)
+            await createToken({id: enterpriseExists.id, user: enterpriseExists.name}, 'Empresa logada!', req, res)
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação', error: error})
         }
