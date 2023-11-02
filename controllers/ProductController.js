@@ -2,6 +2,8 @@ const { validationResult } = require('express-validator')
 const Product = require('../models/Product')
 const Category = require('../models/CategoryProduct')
 const getEnterpriseByToken = require('../helpers/getEnterpriseByToken')
+const sequelize = require('sequelize')
+const Op = sequelize.Op
 
 module.exports = class ProductController{
     static async createProduct(req, res){
@@ -143,6 +145,45 @@ module.exports = class ProductController{
             res.status(200).json({message: 'Produtos cadastrados', products: productsCatalog})
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error}) 
+        }
+    }
+    static async areProductsOnOffer(req, res){
+        try{
+            const productsOnOffer = await Product.findAll({where: {onDiscount: true}})
+            if(!productsOnOffer){
+                return res.status(400).json({message: 'Infelizmente no  momento não há produtos em oferta!'})
+            }
+            res.status(200).json({message: 'Produtos em oferta', products: productsOnOffer})
+        }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error}) 
+        }
+    }
+    static async getProductById(req, res){
+        const id = req.params.id
+        try{
+            const productExists = await Product.findOne({where: {id: id}})
+            if(!productExists){
+                return res.status(404).json({message: 'Produto não encontrado. Tente novamente!'})
+            }
+            return res.status(200).json({message: 'Produto', product: productExists})
+        }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
+        }
+    }
+    static async searchProducts(req, res){
+        const query = req.query.q
+        try{
+            const products = await Product.findAll({where: {
+                name: {
+                    [Op.like]: `%${query}%`
+                }
+            }})
+            if(products.length ===0){
+                return res.status(404).json({message: `Nenhum produto encontrado com base no termo buscado`})
+            }
+            return res.status(200).json({message: 'Produtos encontrados', products: products})
+        }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
         }
     }
 }

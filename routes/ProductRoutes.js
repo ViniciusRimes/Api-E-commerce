@@ -16,6 +16,8 @@ router.post('/create', imageUpload.array('images') ,[
 router.patch('/edit/:id', verifyAdmin, ProductController.editProduct)
 router.delete('/delete/:id', verifyAdmin, ProductController.deleteProduct)
 router.get('/all', ProductController.getAllProducts)
-
+router.get('/onOffer', ProductController.areProductsOnOffer)
+router.get('/get/:id', ProductController.getProductById)
+router.get('/get', ProductController.searchProducts)
 
 module.exports = router

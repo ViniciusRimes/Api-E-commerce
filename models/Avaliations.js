@@ -11,4 +11,6 @@ const Avaliations = db.define('Avaliations', {
 })
 const Product = require('./Product')
 Product.hasMany(Avaliations)
+const User = require('../models/User')
+User.hasMany(Avaliations)
 module.exports = Avaliations

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {body} = require('express-validator')
 const EnterpriseController = require('../controllers/EnterpriseController')
-const verifyToken = require('../helpers/verifyToken')
+const verifyAdmin = require('../helpers/verifyAdmin')
 
 router.post('/register', [
     body('name').notEmpty().withMessage('O campo Nome não pode estar vazio!'),
@@ -20,7 +20,7 @@ router.patch('/addcolaborator', [
     body('email').notEmpty().withMessage('O campo Email não pode estar vazio!'),
     body('cpf').notEmpty().withMessage('O campo CPF não pode estar vazio!'),
     body('phone').notEmpty().withMessage('O campo Telefone não pode estar vazio!')
-], verifyToken, EnterpriseController.relationship)
-router.delete('/delete', verifyToken, EnterpriseController.deleteEnterprise)
+], verifyAdmin, EnterpriseController.relationship)
+router.delete('/delete', verifyAdmin, EnterpriseController.deleteEnterprise)
 
 module.exports = router
