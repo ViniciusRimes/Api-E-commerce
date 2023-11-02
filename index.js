@@ -35,6 +35,8 @@ const EnterpriseRoutes = require('./routes/EnterpriseRoutes')
 app.use('/enterprise', EnterpriseRoutes)
 const ProductRoutes = require('./routes/ProductRoutes')
 app.use('/product', ProductRoutes)
+const AvaliationsRoutes = require('./routes/AvaliationsRoutes')
+app.use('/avaliation', AvaliationsRoutes)
 //connection
 const conn = require('./db/conn')
 conn
