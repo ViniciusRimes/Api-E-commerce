@@ -84,6 +84,41 @@ module.exports = class AvaliationsController{
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
         }
-        
+    }
+    static async getUserAvaliations(req, res){
+        try{
+            const user = await getUserByToken(req, res)
+            if(!user){
+                res.status(404).json({message: 'Usuário não encontrado, faça login ou cadastre-se!'})
+                return
+            }
+            const avaliationsUser = await Avaliations.findAll({where: {UserId: user.id}})
+
+            const avaliations = []
+            for(const aval of avaliationsUser){
+                const product = await Product.findOne({where: {id: aval.ProductId}})
+
+                const userAvaliation = {
+                    avaliation: {
+                        avaliationId: aval.id || null,
+                        avaliationText: aval.avaliationText || null,
+                        avaliationNumber: aval.avaliationNumber || null,
+                    },
+                    user: {
+                        id: user.id,
+                        name: user.fullName
+                    },
+                    product: {
+                        id: product.id,
+                        name: product.name,
+                        images: product.images
+                    }
+                }
+                avaliations.push(userAvaliation)
+            }
+            res.status(200).json({message: 'Avaliações do usuário', avaliations: avaliations})
+        }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
+        }
     }
 }
