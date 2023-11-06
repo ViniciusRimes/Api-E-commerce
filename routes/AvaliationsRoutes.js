@@ -9,5 +9,6 @@ router.post('/create/:id', [
 ], verifyToken, AvaliationsController.createAvaliation)
 router.get('/product/:id', AvaliationsController.getAvaliationByProduct)
 router.get('/myavaliations', AvaliationsController.getUserAvaliations)
+router.delete('/delete/:id', AvaliationsController.deleteAvaliation)
 
 module.exports = router

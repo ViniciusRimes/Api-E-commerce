@@ -1,5 +1,5 @@
 public/imagesProducts/*
-
+.env
 # Logs
 logs
 *.log
