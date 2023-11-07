@@ -25,6 +25,8 @@ const Enterprise = require('./models/Enterprise')
 const Product = require('./models/Product')
 const Avaliations = require('./models/Avaliations')
 const CategoryProduct = require('./models/CategoryProduct')
+const Questions = require('./models/Questions')
+const Answers = require('./models/Answers')
 
 //routes
 const UserRoutes = require('./routes/UserRoutes')
@@ -37,6 +39,10 @@ const ProductRoutes = require('./routes/ProductRoutes')
 app.use('/product', ProductRoutes)
 const AvaliationsRoutes = require('./routes/AvaliationsRoutes')
 app.use('/avaliation', AvaliationsRoutes)
+const QuestionsRoutes = require('./routes/QuestionsRoutes')
+app.use('/questions', QuestionsRoutes)
+const AnswersRoutes = require('./routes/AnswersRoutes')
+app.use('/answers', AnswersRoutes)
 //connection
 const conn = require('./db/conn')
 conn

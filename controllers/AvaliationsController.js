@@ -49,14 +49,13 @@ module.exports = class AvaliationsController{
         }
     }
     static async getAvaliationByProduct(req, res){
-        const id = req.params.id || req.body
+        const id = req.params.id
         try{
             const productExists = await Product.findOne({where: {id: id}})
             if(!productExists){
                 return res.status(404).json({message: 'Produto não encontrado. Tente novamente!'})
             }
             const avalationsProduct = await Avaliations.findAll({ where: { ProductId: id } });
-
             const avaliations = [];
 
             for (const avaliation of avalationsProduct) {
@@ -82,6 +81,7 @@ module.exports = class AvaliationsController{
 
             res.status(200).json({ message: 'Avaliações do produto', avaliations: avaliations })
         }catch(error){
+            console.log(error)
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
         }
     }
@@ -118,6 +118,26 @@ module.exports = class AvaliationsController{
             }
             res.status(200).json({message: 'Avaliações do usuário', avaliations: avaliations})
         }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
+        }
+    }
+    static async deleteAvaliation(req, res){
+        const id = req.params.id
+        try{
+            const user = await getUserByToken(req, res)
+            if(!user){
+                res.status(404).json({message: 'Usuário não encontrado!'})
+                return
+            }
+            const avaliation = await Avaliations.findOne({where: {id: id, UserId: user.id}})
+            if(!avaliation){
+                res.status(404).json({message: 'Avaliação não encontrada ou você não possui autorização para deletá-la!'})
+                return
+            }
+            await Avaliations.destroy({where: {id: id, UserId: user.id}})
+            res.status(200).json({message: 'Avaliação deletada!'})
+        }catch(error){
+            console.log(error)
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
         }
     }
