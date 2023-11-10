@@ -11,9 +11,9 @@ router.post('/add', [
     body('streetAddress').notEmpty().withMessage('O campo RUA não pode estar vazio'),
     body('zipcode').notEmpty().withMessage('O campo CÓDIGO POSTAL não pode estar vazio'),
 ], verifyToken, AddressController.addAddress)
-router.delete('/delete/:id', verifyToken, AddressController.deleteAddressUser)
-router.get('/getalladdress', verifyToken, AddressController.getAllAddressUser)
-router.get('/getaddress/:id', verifyToken, AddressController.getAddressUserById)
-router.patch('/edit/:id', verifyToken, AddressController.editAddressUser)
+router.delete('/delete/:addressId', verifyToken, AddressController.deleteAddressUser)
+router.get('/alladdress', verifyToken, AddressController.getAllAddressUser)
+router.get('/getaddress/:addressId', verifyToken, AddressController.getAddressUserById)
+router.patch('/edit/:addressId', verifyToken, AddressController.editAddressUser)
 
 module.exports = router

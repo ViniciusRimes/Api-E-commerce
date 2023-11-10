@@ -19,7 +19,7 @@ router.post('/login', [
     body('password').notEmpty().withMessage(`O campo SENHA não pode estar vazio`)
 ], UserController.login)
 router.get('/getuser', verifyToken, UserController.getUser)
-router.patch('/edituser/:id', verifyToken, UserController.editUser)
-router.delete('/deleteuser/:id', verifyToken, UserController.deleteUser)
+router.patch('/edituser', verifyToken, UserController.editUser)
+router.delete('/deleteuser', verifyToken, UserController.deleteUser)
 
 module.exports = router
