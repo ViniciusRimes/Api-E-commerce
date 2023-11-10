@@ -3,6 +3,7 @@ const Product = require('../models/Product')
 const Category = require('../models/CategoryProduct')
 const getEnterpriseByToken = require('../helpers/getEnterpriseByToken')
 const sequelize = require('sequelize')
+const CartProduct = require('../models/CartProduct')
 const Op = sequelize.Op
 
 module.exports = class ProductController{
@@ -30,6 +31,10 @@ module.exports = class ProductController{
             res.status(400).json({message: 'Já existe um produto com o mesmo nome cadastrado, modifique o nome e tente novamente!'})
             return
         }
+        if(!/^[0-9]+$/.test(qty)){
+            res.status(400).json({message: 'Quantidade inválida, digite apenas números!'})
+            return
+        }
         try{
             let categoryIntance = null
             const categoryExists = await Category.findOne({where: {name: category}})
@@ -47,22 +52,25 @@ module.exports = class ProductController{
                 qty,
                 CategoryId: categoryIntance.id,
                 images: [],
-                onDiscount: onDiscount || false,
+                onDiscount: onDiscount,
                 EnterpriseId: enterprise.id
             }
-            images.map((image)=>{
+            if(images && images.length > 0){
+                images.map((image)=>{
                 product.images.push(image.filename)
             })
+            }
+            
 
             await Product.create(product)
             res.status(201).json({message: 'Produto cadastrado!'})
         }catch(error){
+            console.log(error)
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})
             return
         }
     }
     static async editProduct(req,res){
-        const id = req.params.id
         const {name, description, price, qty, onDiscount, category, priceDiscount} = req.body
         const images = req.files
         if(onDiscount){
@@ -72,14 +80,15 @@ module.exports = class ProductController{
             }
         }
         
-        const productExists = await Product.findOne({where: {id: id}})
+        const productExists = await Product.findOne({where: {id: req.params.productId}})
         if(!productExists){
             res.status(404).json({message: 'Produto não encontrado!'})
             return
         }
 
         if(name){
-            const nameProductExists = await Product.findOne({where: {name: name}})
+            const nameProductExists = await Product.findOne({ where: {name:{[Op.iLike]:name} } });
+
             if(nameProductExists){
                 res.status(400).json({message: 'Já existe um produto com o mesmo nome cadastrado, modifique o nome e tente novamente!'})
                 return
@@ -104,8 +113,14 @@ module.exports = class ProductController{
                 qty: qty | productExists.qty,
                 CategoryId: categoryIntance ? categoryIntance.id : productExists.CategoryId,
                 images: [],
-                onDiscount: onDiscount || productExists.onDiscount,
                 EnterpriseId: productExists.EnterpriseId
+            }
+            if(onDiscount){
+                product.onDiscount = true
+            }else if(onDiscount === false){
+                product.onDiscount = false
+            }else{
+                product.onDiscount = productExists.onDiscount
             }
             if(images){
                 images.map((image)=>{
@@ -115,10 +130,24 @@ module.exports = class ProductController{
                     product.images.push(image)
                 }) 
             }
-            if(onDiscount !== true){
-                product.onDiscount = false
+            
+            let priceProduct 
+            if(product.onDiscount){
+                priceProduct = product.priceDiscount
+            }else{
+                priceProduct = product.price
             }
-            await Product.update(product, {where: {id: id}})
+            const cartItems = await CartProduct.findAll({where: {ProductId: req.params.productId}})
+
+            for(const cartItem of cartItems){
+                const newPrice = priceProduct
+                const updatedTotalAmount = cartItem.qty * newPrice
+                if(cartItem.price !== newPrice){
+                    await CartProduct.update({price: newPrice, totalAmountProduct: updatedTotalAmount}, {where: {ProductId: req.params.productId}} )
+                }
+                
+            }
+            await Product.update(product, {where: {id: req.params.productId}})
             res.status(201).json({message: 'Produto editado!'})
         }catch(error){
             console.log(error)
@@ -126,14 +155,13 @@ module.exports = class ProductController{
         }
     }
     static async deleteProduct(req, res){
-        const id = req.params.id
         try{
-            const productExists = await Product.findOne({where: {id: id}})
+            const productExists = await Product.findOne({where: {id: req.params.productId}})
             if(!productExists){
                 res.status(404).json({message: 'Produto não encontrado!'})
                 return
             }
-            await Product.destroy({where: {id: id}})
+            await Product.destroy({where: {id: req.params.productId}})
             res.status(200).json({message: 'Produto excluído!'})
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação!', error: error})   
@@ -159,9 +187,8 @@ module.exports = class ProductController{
         }
     }
     static async getProductById(req, res){
-        const id = req.params.id
         try{
-            const productExists = await Product.findOne({where: {id: id}})
+            const productExists = await Product.findOne({where: {id: req.params.productId}})
             if(!productExists){
                 return res.status(404).json({message: 'Produto não encontrado. Tente novamente!'})
             }
@@ -171,8 +198,9 @@ module.exports = class ProductController{
         }
     }
     static async searchProducts(req, res){
-        const query = req.query.q
+        
         try{
+            const query = req.query.q
             const products = await Product.findAll({where: {
                 name: {
                     [Op.like]: `%${query}%`
