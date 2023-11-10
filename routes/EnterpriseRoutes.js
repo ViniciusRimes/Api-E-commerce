@@ -17,9 +17,7 @@ router.post('/login', [
 ], EnterpriseController.login)
 router.patch('/addcolaborator', [
     body('fullName').notEmpty().withMessage('O campo Nome não pode estar vazio!'),
-    body('email').notEmpty().withMessage('O campo Email não pode estar vazio!'),
-    body('cpf').notEmpty().withMessage('O campo CPF não pode estar vazio!'),
-    body('phone').notEmpty().withMessage('O campo Telefone não pode estar vazio!')
+    body('cpf').notEmpty().withMessage('O campo CPF não pode estar vazio!')
 ], verifyAdmin, EnterpriseController.relationship)
 router.delete('/delete', verifyAdmin, EnterpriseController.deleteEnterprise)
 

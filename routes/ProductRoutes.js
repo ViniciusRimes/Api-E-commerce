@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const ProductController = require('../controllers/ProductController')
-const verifyToken = require('../helpers/verifyToken')
 const verifyAdmin= require('../helpers/verifyAdmin')
 const {body} = require('express-validator')
 const imageUpload = require('../helpers/uploadImages')
@@ -13,11 +12,11 @@ router.post('/create', imageUpload.array('images') ,[
     //body('images').notEmpty().withMessage('O campo Imagens não pode estar vazio!'),
     body('category').notEmpty().withMessage('O campo Categoria não pode estar vazio!'),
 ] , verifyAdmin, ProductController.createProduct)
-router.patch('/edit/:id', verifyAdmin, ProductController.editProduct)
-router.delete('/delete/:id', verifyAdmin, ProductController.deleteProduct)
+router.patch('/edit/:productId', verifyAdmin, ProductController.editProduct)
+router.delete('/delete/:productId', verifyAdmin, ProductController.deleteProduct)
 router.get('/all', ProductController.getAllProducts)
 router.get('/onOffer', ProductController.areProductsOnOffer)
-router.get('/get/:id', ProductController.getProductById)
+router.get('/get/:productId', ProductController.getProductById)
 router.get('/get', ProductController.searchProducts)
 
 module.exports = router

@@ -88,10 +88,6 @@ module.exports = class AvaliationsController{
     static async getUserAvaliations(req, res){
         try{
             const user = await getUserByToken(req, res)
-            if(!user){
-                res.status(404).json({message: 'Usuário não encontrado, faça login ou cadastre-se!'})
-                return
-            }
             const avaliationsUser = await Avaliations.findAll({where: {UserId: user.id}})
 
             const avaliations = []
@@ -125,10 +121,6 @@ module.exports = class AvaliationsController{
         const id = req.params.id
         try{
             const user = await getUserByToken(req, res)
-            if(!user){
-                res.status(404).json({message: 'Usuário não encontrado!'})
-                return
-            }
             const avaliation = await Avaliations.findOne({where: {id: id, UserId: user.id}})
             if(!avaliation){
                 res.status(404).json({message: 'Avaliação não encontrada ou você não possui autorização para deletá-la!'})

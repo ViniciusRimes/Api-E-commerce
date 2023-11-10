@@ -52,47 +52,47 @@ module.exports = class EnterpriseController{
         }
     }
     static async login(req, res){
-        const {email, password} = req.body
-        const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            res.status(400).json({message: 'Erro em processar a sua solicitação', errors: errors})
-            return
-        }
-        const enterpriseExists = await Enterprise.findOne({where: {email: email}})
-
-        if(!enterpriseExists){
-            res.status(400).json({message: 'Nenhum usuário está cadastrado com este email, tente novamente.'})
-            return
-        }
-        const comparePassword = bcryptjs.compareSync(password, enterpriseExists.password)
-        if(!comparePassword){
-            res.status(400).json({message: 'Senha incorreta.'})
-            return
-        }
         try{
+            const {email, password} = req.body
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                res.status(400).json({message: 'Erro em processar a sua solicitação', errors: errors})
+                return
+            }
+            const enterpriseExists = await Enterprise.findOne({where: {email: email}})
+
+            if(!enterpriseExists){
+                res.status(400).json({message: 'Nenhum usuário está cadastrado com este email, tente novamente.'})
+                return
+            }
+            const comparePassword = bcryptjs.compareSync(password, enterpriseExists.password)
+            if(!comparePassword){
+                res.status(400).json({message: 'Senha incorreta.'})
+                return
+            }
             await createToken({id: enterpriseExists.id, user: enterpriseExists.name}, 'Empresa logada!', req, res)
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação', error: error})
         }
     }
     static async relationship(req, res){
-        const {fullName, email, cpf, phone} = req.body
-        const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            res.status(400).json({message: 'Erro em processar a sua solicitação', errors: errors})
-            return
-        }
-        const userExists = await User.findOne({where: {fullName, cpf, email, phone}})
-        if(!userExists){
-            res.status(400).json({message: 'Nenhum usuário está cadastrado com estas informações, tente novamente.'})
-            return
-        }
-        if(userExists.isAdmin !== true){
-            res.status(400).json({message: 'O usuário mencionado não é administrador, tente novamente.'})
-            return
-        }
-        const enterprise = await getEnterpriseByToken(req, res)
         try{
+            const {fullName, email, cpf, phone} = req.body
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                res.status(400).json({message: 'Erro em processar a sua solicitação', errors: errors})
+                return
+            }
+            const userExists = await User.findOne({where: {fullName, cpf}})
+            if(!userExists){
+                res.status(400).json({message: 'Nenhum usuário está cadastrado com estas informações, tente novamente.'})
+                return
+            }
+            if(userExists.isAdmin !== true){
+                res.status(400).json({message: 'O usuário mencionado não é administrador, tente novamente.'})
+                return
+            }
+            const enterprise = await getEnterpriseByToken(req, res)
             await Enterprise.update({UserId: userExists.id}, {where: {id: enterprise.id}})
             res.status(200).json({message: 'Colaborador administrador adicionado!'})
         }catch(error){
@@ -100,17 +100,17 @@ module.exports = class EnterpriseController{
         }
     }
     static async deleteEnterprise(req, res){
-        const {password} = req.body
-        const enterprise = await getEnterpriseByToken(req, res)
-        if(!enterprise){
-            return
-        }
-        const comparePassword = bcryptjs.compareSync(password, enterprise.password)
-        if(!comparePassword){
-            res.status(400).json({message: 'Senha incorreta'})
-            return
-        }
         try{
+            const {password} = req.body
+            const enterprise = await getEnterpriseByToken(req, res)
+            if(!enterprise){
+                return
+            }
+            const comparePassword = bcryptjs.compareSync(password, enterprise.password)
+            if(!comparePassword){
+                res.status(400).json({message: 'Senha incorreta'})
+                return
+            }
             res.status(200).json({message: 'Empresa excluída!'})
             await Enterprise.destroy({where: {id: enterprise.id}})
         }catch(error){

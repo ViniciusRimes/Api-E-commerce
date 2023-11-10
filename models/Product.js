@@ -31,5 +31,4 @@ const Product = db.define('Product', {
 })
 const Enterprise = require('./Enterprise')
 Product.belongsTo(Enterprise)
-
 module.exports = Product
