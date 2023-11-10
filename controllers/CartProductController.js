@@ -173,7 +173,6 @@ module.exports = class CartProductController{
             }
             res.status(200).json({message: 'Carrinho', product: products, totalAmountCart: totalAmountCart})
         }catch(error){
-            console.log(error)
             res.status(500).json({message: 'Erro em processar a sua solicitação', error: error})
         }
     }
