@@ -14,6 +14,10 @@ const CartProduct = db.define('CartProduct', {
     selected: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    sold: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
 const CartUser = require('./CartUser')
