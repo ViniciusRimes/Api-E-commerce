@@ -215,7 +215,25 @@ module.exports = class CartProductController{
                 }
                 products.push(itemProduct)
             }
-            res.status(200).json({message: 'Carrinhoo', product: products, totalAmountCart: totalAmountCart})
+            CartProduct.update({sold: true}, {where: {CartUserId: cart.id, selected: true}})
+            res.status(200).json({message: 'Compra concluída!', products: products, totalAmountCart: totalAmountCart})
+        }catch(error){
+            res.status(500).json({message: 'Erro em processar a sua solicitação', error: error})
+        }
+    }
+    static async updateStock(req, res){
+        try{
+            const user = await getUserByToken(req, res)
+            const cart = await CartUser.findOne({where: {UserId: user.id}})
+            const productsSold = await CartProduct.findAll({where: {CartUserId: cart.id, sold: true}})
+            
+            for(const p of productsSold){
+                const product = await Product.findOne({where: {id: p.ProductId}})
+                const newQty = product.qty - p.qty
+                await Product.update({qty: newQty}, {where: {id: product.id}})
+            }
+            await CartProduct.destroy({where: {CartUserId: user.id, sold: true}})
+            res.status(200).json({message: "Estoque atualizado!"})
         }catch(error){
             res.status(500).json({message: 'Erro em processar a sua solicitação', error: error})
         }
