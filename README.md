@@ -140,4 +140,4 @@ Siga estas etapas para instalar e configurar a E-commerce API:
     ```
 ## Contato
 📧 E-mail: viniciusrimess@gmail.com
-💼 LinkedIn: Vinícius Rimes de Oliveira
+- 💼 LinkedIn: [ViníciusRimesdeOliveira](https://www.linkedin.com/in/vin%C3%ADcius-rimes-de-oliveira-053846253/)
