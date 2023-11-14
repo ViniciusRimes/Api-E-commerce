@@ -120,7 +120,7 @@ Clone o repositório a partir do GitHub:
 
 bash
 Copy code
-git clone https://github.com/ViniciusRimes/Api-E-commerce.git
+
 Contato
 📧 E-mail: viniciusrimess@gmail.com
 💼 LinkedIn: Vinícius Rimes de Oliveira
