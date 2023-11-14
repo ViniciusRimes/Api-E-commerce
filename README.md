@@ -105,7 +105,7 @@ Isso fornecerá um token JWT que deve ser incluído no cabeçalho de todas as so
 
 ### Usando o Token JWT
 Uma vez que você tenha obtido um token JWT, inclua-o no cabeçalho de suas solicitações para acessar os endpoints protegidos. O cabeçalho deve ser definido da seguinte forma:
-
+```makefile
 Authorization: Bearer SEU_TOKEN_JWT_AQUI
 
 ## Expiração do Token
@@ -114,7 +114,6 @@ Os tokens JWT geralmente têm um tempo de vida limitado. Certifique-se de que se
 ## Exemplo de Solicitação Autenticada
 Aqui está um exemplo de como fazer uma solicitação autenticada utilizando o token JWT no cabeçalho:
 
-```sql
 GET /cart/addCart/:productId 
 Authorization: Bearer SEU_TOKEN_JWT_AQUI
 
