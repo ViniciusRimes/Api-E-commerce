@@ -107,7 +107,7 @@ Isso fornecerá um token JWT que deve ser incluído no cabeçalho de todas as so
 Uma vez que você tenha obtido um token JWT, inclua-o no cabeçalho de suas solicitações para acessar os endpoints protegidos. O cabeçalho deve ser definido da seguinte forma:
 ```makefile
 Authorization: Bearer SEU_TOKEN_JWT_AQUI
-
+```
 ## Expiração do Token
 Os tokens JWT geralmente têm um tempo de vida limitado. Certifique-se de que seu token esteja atualizado para evitar a expiração. Caso contrário, você precisará obter um novo token fazendo login novamente.
 
