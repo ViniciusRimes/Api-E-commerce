@@ -138,6 +138,6 @@ Siga estas etapas para instalar e configurar a E-commerce API:
     ```bash
     git clone https://github.com/ViniciusRimes/Api-E-commerce.git
     ```
-Contato
+## Contato
 📧 E-mail: viniciusrimess@gmail.com
 💼 LinkedIn: Vinícius Rimes de Oliveira
