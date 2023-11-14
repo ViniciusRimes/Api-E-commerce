@@ -1,3 +1,26 @@
+# Sumário
+
+1. [Descrição](#descrição)
+2. [Funcionalidades](#funcionalidades)
+3. [Endpoints](#endpoints)
+    - [Empresas](#empresas)
+    - [Usuários](#usuários)
+    - [Produtos](#produtos)
+    - [Endereços](#endereços)
+    - [Avaliações](#avaliações)
+    - [Perguntas](#perguntas)
+    - [Respostas](#respostas)
+    - [Carrinho de Produtos](#carrinho-de-produtos)
+4. [Autenticação](#autenticação)
+    - [Obtendo um Token JWT](#obtendo-um-token-jwt)
+    - [Usando o Token JWT](#usando-o-token-jwt)
+    - [Expiração do Token](#expiração-do-token)
+    - [Exemplo de Solicitação Autenticada](#exemplo-de-solicitação-autenticada)
+    - [Possíveis Erros de Autenticação](#possíveis-erros-de-autenticação)
+5. [Pré-requisitos](#pré-requisitos)
+6. [Instalação](#instalação)
+7. [Contato](#contato)
+
 # E-commerce API
 
 ## Descrição
