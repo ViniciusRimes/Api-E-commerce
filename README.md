@@ -124,8 +124,9 @@ Content-Type: application/json
   "password": "senha123"
 }
 ```
+
 ### Respostas
-200 OK: A empresa foi deletada com sucesso.  
+* 200 OK: A empresa foi deletada com sucesso.  
 {
   "message": "Empresa excluída!"
 }
