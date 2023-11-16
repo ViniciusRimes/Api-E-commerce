@@ -88,22 +88,25 @@ Este endpoint realiza o login de uma empresa existente no sistema.
 }
 ```
 ### Respostas
-```json
+
 * 200 OK: O login foi realizado com sucesso. Retorna informações adicionais, como o token da empresa.
+
 {
   "message": "Empresa logada!",
   "token": "Token gerado"
 }
+
 * 400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico. Exemplo:
 {
   "message": "Nenhum usuário está cadastrado com este email, tente novamente."
 }
+
 * 500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 {
     "message": "Erro em processar a sua solicitação",
     "error": "Detalhes do erro"
 }
-```
+
 ## Endpoint `DELETE /enterprise/delete`
 
 ### Descrição
