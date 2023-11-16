@@ -613,8 +613,8 @@ Content-Type: application/json
   "city": "São Paulo",
   "state": "SP",
   "zipcode": "01234-567",
-  "streetaddress": "Nova Rua",
-  "numberhouse": "456"
+  "streetAddress": "Nova Rua",
+  "numberHouse": "456"
 }
 ```
 * **200 OK**: Edita o endereço.
@@ -665,7 +665,7 @@ Seleciona o endereço principal.
 PATCH /address/select/mainAddress/123456789
 Authorization: Bearer seu_token_aqui
 ```
-
+## Respostas
 * **200 OK**: Seleciona o endereço como principal.
 
 * **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Nenhum endereço encontrado.
@@ -674,33 +674,553 @@ Authorization: Bearer seu_token_aqui
 
 * **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 ### Avaliações
-- `POST /avaliation/create/:productId`: Permite que o usuário crie uma avaliação para um produto, incluindo texto e número.
-- `GET /avaliation/:productId`: Retorna todas as avaliações de um produto com todas as informações.
-- `GET /avaliation/myavaliations`: Retorna todas as avaliações do usuário.
-- `DELETE /avaliation/delete/:avaliationID`: Deleta uma avaliação.
+
+
+## Endpoint `POST /avaliation/create/:productId`
+
+### Descrição
+Permite que o usuário crie uma avaliação para um produto, incluindo texto (opcional) e número.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto para o qual a avaliação será criada.
+3. **Texto da Avaliação** (*string*, opcional): Comentário ou texto da avaliação.
+4. **Número da Avaliação** (*number*): Número associado à avaliação.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /avaliation/create/123456789
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+```
+```json
+{
+  "avaliationNumber": "Ótimo produto, estou muito satisfeito!",
+  "avaliationText": 5
+}
+```
+## Respostas
+* **200 OK**: Cria a avaliação.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `GET /avaliation/:productId`
+
+### Descrição
+Retorna todas as avaliações de um produto com todas as informações.
+
+### Parâmetros necessários
+
+1. **productId** (*string*): ID do produto para o qual as avaliações serão recuperadas.
+
+## Respostas
+* **200 OK**: Retorna todas avaliações do produto.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `GET /avaliation/myavaliations`
+
+### Descrição
+Retorna todas as avaliações do usuário.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+
+### Exemplo de solicitação (HTTP)
+
+```http
+GET /avaliation/myavaliations
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Retorna todas avaliações do usuário.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Usuário não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `DELETE /avaliation/delete/:avaliationID`
+
+### Descrição
+Deleta uma avaliação.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **avaliationID** (*string*): ID da avaliação a ser deletada.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+DELETE /avaliation/delete/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Deleta avaliação do usuário.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Avaliação não encontrada.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 
 ### Perguntas
-- `POST /questions/create/:productId`: Permite que o usuário faça uma pergunta sobre um produto.
-- `GET /questions/:productId`: Retorna todas as perguntas de um produto.
-- `GET /questions/myquestions`: Retorna todas as perguntas do usuário.
-- `DELETE /questions/delete/:questionId`: Deleta uma pergunta.
+## Endpoint `POST /questions/create/:productId`
+
+### Descrição
+Permite que o usuário faça uma pergunta sobre um produto.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto para o qual a pergunta será feita.
+3. **Content** (*string*): Texto da pergunta.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /questions/create/123456789
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+```
+```json
+{
+  "content": "Este produto está disponível em outras cores?"
+}
+```
+## Respostas
+* **200 OK**: Cria uma pergunta para o produto.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+## Endpoint `GET /questions/:productId`
+
+### Descrição
+Retorna todas as perguntas de um produto.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto para o qual as perguntas serão recuperadas.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+GET /questions/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Retorna todas as perguntas de um produto.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+## Endpoint `GET /questions/myquestions`
+
+### Descrição
+Retorna todas as perguntas do usuário.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+
+### Exemplo de solicitação (HTTP)
+
+```http
+GET /questions/myquestions
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Retorna todas as perguntas o usuário.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Usuário não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+## Endpoint `DELETE /questions/delete/:questionId`
+
+### Descrição
+Deleta uma pergunta.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **questionId** (*string*): ID da pergunta a ser deletada.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+DELETE /questions/delete/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Deleta uma pergunta.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Pergunta não encontrada.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 
 ### Respostas
-- `POST /answers/create/:questionId`: Permite que o usuário responda a uma pergunta sobre um produto.
-- `GET /answers/:questionId?product=`: Retorna todas as respostas para uma pergunta de um produto.
-- `GET /answers/myanswers`: Retorna todas as respostas do usuário.
-- `DELETE /answers/delete/:answersId?product=`: Deleta uma resposta.
+## Endpoint `POST /answers/create/:questionId`
+
+### Descrição
+Permite que o usuário responda a uma pergunta sobre um produto.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **questionId** (*string*): ID da pergunta para a qual a resposta será criada.
+3. **Conteúdo da Resposta** (*string*): Texto da resposta.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /answers/create/123456789
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+```
+```json
+{
+  "content": "Sim, este produto está disponível em outras cores."
+}
+```
+## Respostas
+* **200 OK**: Cria uma resposta para uma pergunta.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Pergunta não encontrada.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+
+## Endpoint `GET /answers/:questionId?product=`
+
+### Descrição
+Retorna todas as respostas para uma pergunta de um produto.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **questionId** (*string*): ID da pergunta para a qual as respostas serão recuperadas.
+3. **product** (*string*): ID do produto relacionado à pergunta.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+GET /answers/123456789?product=987654321
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Retorna todas as respostas para uma pergunta de um produto.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `GET /answers/myanswers`
+
+### Descrição
+Retorna todas as respostas do usuário.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+
+### Exemplo de solicitação (HTTP)
+
+```http
+GET /answers/myanswers
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Retorna todas as respostas do usuário.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Usuário não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `DELETE /answers/delete/:answersId?product=`
+
+### Descrição
+Deleta uma resposta.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **answersId** (*string*): ID da resposta a ser deletada.
+3. **product** (*string*): ID do produto relacionado à resposta.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+DELETE /answers/delete/123456789?product=987654321
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Deleta uma resposta.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Resposta não encontrada.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 
 ### Carrinho de Produtos
-- `POST /cart/addcart/:productID`: Adiciona um produto ao carrinho do usuário.
-- `GET /cart/getcart`: Retorna informações do carrinho do usuário.
-- `DELETE /cart/removeproduct/:productId`: Remove um produto do carrinho.
-- `POST /cart/addqty/:productId`: Aumenta a quantidade do produto em 1 unidade.
-- `DELETE /cart/decreasyqty/:productId`: Diminui a quantidade do produto em 1 unidade.
-- `POST /cart/checkout`: Finaliza a compra.
-- `PATCH /cart/select/:productId`: Seleciona os produtos do carrinho a serem comprados.
-- `PATCH /cart/editqty/:productId`: Edita a quantidade desejada do produto.
-- `POST /cart/updatestock`: Atualiza o estoque após a finalização da compra.
+## Endpoint `POST /cart/addcart/:productID`
+
+### Descrição
+Adiciona um produto ao carrinho do usuário.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productID** (*string*): ID do produto a ser adicionado ao carrinho.
+3. **qty** (*number*): Quantidade do produto a ser adicionada ao carrinho.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /cart/addcart/123456789
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+```
+```json
+{
+  "qty": 2
+}
+```
+## Respostas
+* **200 OK**: Adiciona o produto ao carrinho.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Quantidade desejada indisponível.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `GET /cart/getcart`
+
+### Descrição
+Retorna informações do carrinho do usuário.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+
+### Exemplo de solicitação (HTTP)
+
+```http
+GET /cart/getcart
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Retorna produtos do carrinho.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Nenhum produto no carrinho.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `DELETE /cart/removeproduct/:productId`
+
+### Descrição
+Remove um produto do carrinho.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto a ser removido do carrinho.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+DELETE /cart/removeproduct/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Remove produto do carrinho.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+## Endpoint `POST /cart/addqty/:productId`
+
+### Descrição
+Aumenta a quantidade do produto em 1 unidade.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto para o qual a quantidade será aumentada.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /cart/addqty/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Adiciona uma unidade produto a quantidade existente do carrinho.
+
+* **404 Not Found**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `DELETE /cart/decreaseqty/:productId`
+
+### Descrição
+Diminui a quantidade do produto em 1 unidade.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto para o qual a quantidade será aumentada.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+DELETE /cart/decreaseqty/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Remove uma unidade produto a quantidade existente do carrinho.
+
+* **404 Not Found**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `PATCH /cart/editqty/:productId`
+
+### Descrição
+Edita a quantidade desejada do produto no carrinho.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto para o qual a quantidade será editada.
+3. **qty** (*number*): Nova quantidade desejada do produto.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+PATCH /cart/editqty/123456789
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+```
+```json
+{
+  "qty": 3
+}
+```
+## Respostas
+* **200 OK**: Edita a quantidade desejada do produto.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Quantidade indisponível.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `PATCH /cart/select/:productId`
+
+### Descrição
+Seleciona os produtos do carrinho a serem comprados.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+2. **productId** (*string*): ID do produto a ser selecionado para compra.
+
+### Exemplo de solicitação (HTTP)
+
+```http
+PATCH /cart/select/123456789
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Seleciona os produtos a serem comprados.
+
+* **404 Not Found**: Erro nos parâmetros fornecidos. Por exemplo: Produto não encontrado.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `POST /cart/checkout`
+
+### Descrição
+Finaliza a compra dos produtos selecionados no carrinho.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /cart/checkout
+Authorization: Bearer seu_token_aqui
+```
+## Respostas
+* **200 OK**: Finaliza a compra dos produtos selecionados no carrinho.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: Nenhum endereço cadastrado(necessário para comprar).
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
+## Endpoint `POST /cart/updatestock`
+
+### Descrição
+Atualiza o estoque após a finalização da compra. Marcando os produtos do carrinho como vendidos.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação do usuário (passado pelo cabeçalho da solicitação).
+
+### Exemplo de solicitação (HTTP)
+
+```http
+POST /cart/updatestock
+Authorization: Bearer seu_token_aqui
+```
+* **200 OK**: Atualiza o estoque dos produtos após a finalização da compra.
+
+* **401 Unauthorized**: Token inválido ou ausente. Indica que o token fornecido não é válido ou não foi enviado.
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 
 ## Autenticação
 A E-commerce API utiliza autenticação baseada em tokens JWT (Json Web Token) para proteger os endpoints que requerem autorização. A seguir, explicamos como a autenticação funciona e como os usuários podem obter um token de autenticação.
