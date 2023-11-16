@@ -19,6 +19,7 @@
     - [Possíveis Erros de Autenticação](#possíveis-erros-de-autenticação)
 5. [Pré-requisitos](#pré-requisitos)
 6. [Instalação](#instalação)
+7. [Contribuindo](#contribuindo-para-a-e-commerce-api)
 7. [Contato](#contato)
 
 # E-commerce API
@@ -1272,6 +1273,48 @@ Siga estas etapas para instalar e configurar a E-commerce API:
     ```bash
     git clone https://github.com/ViniciusRimes/Api-E-commerce.git
     ```
+2. Navegue até o diretório do projeto:
+    ```bash
+    cd Api-E-commerce
+    ```
+3. Instale as dependências necessárias:
+    ```bash
+    npm install
+    ```
+4. Configure as variáveis de ambiente:
+Crie um arquivo .env no diretório raiz do projeto e defina as variáveis de ambiente necessárias, como: **SECRET**(JWT), **USER**(BANCO DE DADOS) e **PASSWORD**(BANCO DE DADOS).
+5. Inicie o servidor:
+    ```bash
+    npm start
+    ```
+## Contribuindo para a E-commerce API
+
+Agradecemos pelo seu interesse em contribuir para a E-commerce API! Sua colaboração é crucial para melhorar nossa plataforma. Abaixo estão algumas maneiras de começar:
+
+### Encontrou um Problema?
+
+Se identificou um bug ou problema, por favor, [abra uma issue](https://github.com/ViniciusRimes/Api-E-commerce/issues) no repositório. Forneça detalhes claros sobre o problema, incluindo passos para reprodução, se possível.
+
+### Quer Adicionar uma Nova Funcionalidade?
+
+1. Verifique se já existe uma issue relacionada à funcionalidade que deseja adicionar.
+2. Caso não exista, [abra uma nova issue](https://github.com/ViniciusRimes/Api-E-commerce/issues) descrevendo a nova funcionalidade proposta.
+3. Aguarde feedback da comunidade antes de iniciar o trabalho.
+
+### Quer Corrigir ou Melhorar a Documentação?
+
+A documentação é crucial para facilitar o entendimento e uso da E-commerce API. Se encontrar partes que podem ser aprimoradas ou se deseja adicionar informações úteis, fique à vontade para [abrir uma issue](https://github.com/ViniciusRimes/Api-E-commerce/issues) ou enviar uma solicitação de pull request com as alterações.
+
+### Enviando uma Pull Request
+
+1. Antes de enviar uma pull request, certifique-se de que sua proposta foi discutida na issue correspondente.
+2. Faça um fork do repositório e crie um branch para sua contribuição.
+3. Realize as alterações necessárias.
+4. Certifique-se de executar os testes e que tudo está funcionando conforme esperado.
+5. Envie a pull request para revisão.
+
+Lembramos que todas as contribuições estão sujeitas a revisão e podem passar por discussões construtivas para garantir a qualidade do código e da API. Agradecemos seu comprometimento com a melhoria contínua da E-commerce API!
+
 ## Contato
 - 📧 E-mail: viniciusrimess@gmail.com
 - 💼 LinkedIn: [ViníciusRimes](https://www.linkedin.com/in/vinicius-rimes-de-oliveira/)
