@@ -56,19 +56,12 @@ Este endpoint é responsável por cadastrar uma nova empresa no sistema.
 }
 ```
 ### Respostas
-200 OK: O cadastro foi realizado com sucesso. Retorna informações adicionais, como o ID da empresa.
-{
-  "message": "Empresa cadastrada!"
-}
-400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico. Exemplo:
-{
-  "message": "Já existe um usuário cadastrado com este email, tente novamente."
-}
-500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
-{
-    "message": "Erro em processar a sua solicitação",
-    "error": "Detalhes do erro"
-}
+* **200 OK**: O cadastro foi realizado com sucesso. Retorna informações adicionais, como o ID da empresa.
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico. Exemplo:
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+
 ## Endpoint `POST /enterprise/login`
 
 ### Descrição
@@ -89,23 +82,11 @@ Este endpoint realiza o login de uma empresa existente no sistema.
 ```
 ### Respostas
 
-* 200 OK: O login foi realizado com sucesso. Retorna informações adicionais, como o token da empresa.
+* **200 OK**: O login foi realizado com sucesso. Retorna informações adicionais, como o token da empresa.
 
-{
-  "message": "Empresa logada!",
-  "token": "Token gerado"
-}
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico.
 
-* 400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico. Exemplo:
-{
-  "message": "Nenhum usuário está cadastrado com este email, tente novamente."
-}
-
-* 500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
-{
-    "message": "Erro em processar a sua solicitação",
-    "error": "Detalhes do erro"
-}
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 
 ## Endpoint `DELETE /enterprise/delete`
 
@@ -131,26 +112,15 @@ Content-Type: application/json
 ```
 
 ### Respostas
-```json
-* 200 OK: A empresa foi deletada com sucesso.  
-{
-  "message": "Empresa excluída!"
-}
 
-* 400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico.
-{
-  "message": "Senha incorreta."
-}
-* 401 Unauthorized: Token inválido ou ausente, ou senha incorreta. Indica que o token fornecido não é válido, não foi enviado ou a senha fornecida não confere.  
-{
-  "message": "Token não encontrado ou inválido!"
-}
-*500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.  
-{
-  "message": "Erro em processar a sua solicitação",
-  "error": "Detalhes do erro"
-}
-```
+* **200 OK**: A empresa foi deletada com sucesso.  
+
+* **400 Bad Request**: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico.
+
+* **401 Unauthorized**: Token inválido ou ausente, ou senha incorreta. Indica que o token fornecido não é válido, não foi enviado ou a senha fornecida não confere.  
+
+* **500 Internal Server Error**: Erro interno no servidor. Retorna uma mensagem de erro genérica.  
+
 ### Usuários
 - `POST /user/register`: Cadastra um novo usuário.
 - `POST /user/login`: Realiza o login de um usuário existente.
