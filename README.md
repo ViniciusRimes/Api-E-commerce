@@ -1249,7 +1249,7 @@ Os tokens JWT geralmente têm um tempo de vida limitado. Certifique-se de que se
 ## Exemplo de Solicitação Autenticada
 Aqui está um exemplo de como fazer uma solicitação autenticada utilizando o token JWT no cabeçalho:
 
-GET /cart/addCart/:productId 
+POST /cart/addCart/:productId 
 Authorization: Bearer SEU_TOKEN_JWT_AQUI
 
 ## Possíveis Erros de Autenticação
