@@ -31,11 +31,114 @@ A E-commerce API é um sistema desenvolvido para lojas virtuais, inspirado em pl
 - Autenticação segura utilizando a biblioteca JSON Web Token (JWT).
 
 ### Empresas
-- `POST /enterprise/register`: Cadastra uma nova empresa.
-- `POST /enterprise/login`: Realiza o login de uma empresa existente.
-- `GET /enterprise/getuser`: Retorna informações da empresa com base no token.
-- `PATCH /enterprise/edituser`: Atualiza informações da empresa usando o token.
-- `DELETE /enterprise/delete`: Deleta a empresa cadastrada.
+## Endpoint `POST /enterprise/register`
+
+### Descrição
+Este endpoint é responsável por cadastrar uma nova empresa no sistema.
+
+### Parâmetros necessários
+
+1. **name** (*string*): Nome da empresa.
+2. **email** (*string*): Endereço de e-mail da empresa.
+3. **password** (*string*): Senha para a conta da empresa.
+4. **confirmPassword** (*string*): Confirmação da senha, deve coincidir com o campo de senha.
+5. **phone** (*string*): Número de telefone da empresa.
+
+### Exemplo de solicitação (JSON)
+
+```json
+{
+  "name": "Nome da Empresa",
+  "email": "empresa@email.com",
+  "password": "senha123",
+  "confirmPassword": "senha123",
+  "phone": "123456789"
+}
+
+Respostas
+200 OK: O cadastro foi realizado com sucesso. Retorna informações adicionais, como o ID da empresa.
+{
+  "message": "Empresa cadastrada!"
+}
+400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico. Exemplo:
+{
+  "message": "Já existe um usuário cadastrado com este email, tente novamente."
+}
+500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+{
+    "message": "Erro em processar a sua solicitação",
+    "error": "Detalhes do erro"
+}
+## Endpoint `POST /enterprise/login`
+
+### Descrição
+Este endpoint realiza o login de uma empresa existente no sistema.
+
+### Parâmetros necessários
+
+1. **email** (*string*): Endereço de e-mail da empresa.
+2. **password** (*string*): Senha associada à conta da empresa.
+
+### Exemplo de solicitação (JSON)
+
+```json
+{
+  "email": "empresa@email.com",
+  "password": "senha123"
+}
+Respostas
+200 OK: O login foi realizado com sucesso. Retorna informações adicionais, como o token da empresa.
+{
+  "message": "Empresa logada!",
+  "token": "Token gerado"
+}
+400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico. Exemplo:
+{
+  "message": "Nenhum usuário está cadastrado com este email, tente novamente."
+}
+500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+{
+    "message": "Erro em processar a sua solicitação",
+    "error": "Detalhes do erro"
+}
+## Endpoint `DELETE /enterprise/delete`
+
+### Descrição
+Este endpoint deleta a empresa cadastrada com base no token de autenticação fornecido. É necessário também fornecer a senha da empresa para confirmação.
+
+### Parâmetros necessários
+
+1. **Token** (*string*): Token de autenticação da empresa.
+2. **Senha da Empresa** (*string*): Senha atual da empresa para confirmar a exclusão da conta.
+
+### Exemplo de solicitação
+
+```http
+DELETE /enterprise/delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Content-Type: application/json
+
+{
+  "password": "senha_atual_da_empresa"
+}
+Respostas
+200 OK: A empresa foi deletada com sucesso.
+{
+  "message": "Empresa excluída!"
+}
+400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico.
+{
+  "message": "Senha incorreta."
+}
+401 Unauthorized: Token inválido ou ausente, ou senha incorreta. Indica que o token fornecido não é válido, não foi enviado ou a senha fornecida não confere.
+{
+  "message": "Token não encontrado ou inválido!"
+}
+500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
+{
+  "message": "Erro em processar a sua solicitação",
+  "error": "Detalhes do erro"
+}
 
 ### Usuários
 - `POST /user/register`: Cadastra um novo usuário.
@@ -139,5 +242,5 @@ Siga estas etapas para instalar e configurar a E-commerce API:
     git clone https://github.com/ViniciusRimes/Api-E-commerce.git
     ```
 ## Contato
-📧 E-mail: viniciusrimess@gmail.com
-- 💼 LinkedIn: [ViníciusRimesdeOliveira](https://www.linkedin.com/in/vin%C3%ADcius-rimes-de-oliveira-053846253/)
+- 📧 E-mail: viniciusrimess@gmail.com
+- 💼 LinkedIn: [ViníciusRimes](https://www.linkedin.com/in/vinicius-rimes-de-oliveira/)
