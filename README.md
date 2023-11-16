@@ -32,6 +32,9 @@ A E-commerce API simplifica e aprimora a gestão de empresas e usuários, propor
 As funcionalidades de interação são acentuadas por recursos como avaliações de produtos, permitindo que os usuários forneçam feedback valioso, e um sistema de perguntas e respostas interativas para aprimorar a compreensão dos consumidores sobre os produtos. O carrinho de compras é otimizado para uma gestão fácil e intuitiva, enquanto a atualização automática do estoque garante que os níveis estejam sempre precisos, proporcionando uma experiência de compra online eficiente e tranquila.
 
 ### Empresas
+
+## Endpoints
+
 ## Endpoint `POST /enterprise/register`
 
 ### Descrição
