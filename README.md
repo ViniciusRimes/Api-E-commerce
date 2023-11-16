@@ -19,6 +19,7 @@
     - [Possíveis Erros de Autenticação](#possíveis-erros-de-autenticação)
 5. [Pré-requisitos](#pré-requisitos)
 6. [Instalação](#instalação)
+7. [Contribuindo](#contribuindo-para-a-e-commerce-api)
 7. [Contato](#contato)
 
 # E-commerce API
