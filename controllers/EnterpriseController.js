@@ -77,7 +77,7 @@ module.exports = class EnterpriseController{
     }
     static async relationship(req, res){
         try{
-            const {fullName, email, cpf, phone} = req.body
+            const {fullName, cpf} = req.body
             const errors = validationResult(req)
             if(!errors.isEmpty()){
                 res.status(400).json({message: 'Erro em processar a sua solicitação', errors: errors})
@@ -88,11 +88,8 @@ module.exports = class EnterpriseController{
                 res.status(400).json({message: 'Nenhum usuário está cadastrado com estas informações, tente novamente.'})
                 return
             }
-            if(userExists.isAdmin !== true){
-                res.status(400).json({message: 'O usuário mencionado não é administrador, tente novamente.'})
-                return
-            }
             const enterprise = await getEnterpriseByToken(req, res)
+            await User.update({isAdmin: true}, {where: {id: userExists.id}})
             await Enterprise.update({UserId: userExists.id}, {where: {id: enterprise.id}})
             res.status(200).json({message: 'Colaborador administrador adicionado!'})
         }catch(error){

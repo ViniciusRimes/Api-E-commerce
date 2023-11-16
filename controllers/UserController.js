@@ -7,7 +7,7 @@ const getUserByToken = require('../helpers/getUserByToken')
 module.exports = class UserController{
     static async register(req, res){
         try{
-            const {firstName, lastName, email, password, confirmPassword, cpf, phone, isAdmin} = req.body
+            const {firstName, lastName, email, password, confirmPassword, cpf, phone} = req.body
 
             const errors = validationResult(req)
             if(!errors.isEmpty()){
@@ -41,7 +41,6 @@ module.exports = class UserController{
                 password: passwordHash,
                 cpf: cpf,
                 phone: phone,
-                isAdmin: isAdmin
             }
             const user = await User.create(userDetails)
             await CartUser.create({UserId: user.id })
