@@ -54,7 +54,6 @@ Este endpoint é responsável por cadastrar uma nova empresa no sistema.
   "confirmPassword": "senha123",
   "phone": "123456789"
 }
-```
 Respostas
 200 OK: O cadastro foi realizado com sucesso. Retorna informações adicionais, como o ID da empresa.
 {
