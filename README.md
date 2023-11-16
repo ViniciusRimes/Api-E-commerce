@@ -24,11 +24,12 @@
 # E-commerce API
 
 ## Descrição
-A E-commerce API é um sistema desenvolvido para lojas virtuais, inspirado em plataformas como Amazon, Americanas, KABUM, entre outras. A API oferece diversas funcionalidades relacionadas a produtos e empresas.
+A E-commerce API é uma solução completa voltada para lojas virtuais, inspirada em líderes do mercado como Amazon e Americanas. Proporcionando uma experiência segura e eficiente, a API utiliza JSON Web Token (JWT) para autenticação confiável e oferece um conjunto de funcionalidades abrangentes para empresas e usuários.
 
 ## Funcionalidades
-### Cadastro e Login de Empresas e Usuários
-- Autenticação segura utilizando a biblioteca JSON Web Token (JWT).
+A E-commerce API simplifica e aprimora a gestão de empresas e usuários, proporcionando uma experiência completa e segura no universo do e-commerce. Para as empresas, a API oferece um processo de registro seguro, autenticação simplificada e a flexibilidade necessária para a atualização e exclusão de perfis. No âmbito dos produtos, a API simplifica o ciclo de vida, facilitando o cadastro, atualização e remoção de itens, garantindo uma experiência de compra online eficaz.
+
+As funcionalidades de interação são acentuadas por recursos como avaliações de produtos, permitindo que os usuários forneçam feedback valioso, e um sistema de perguntas e respostas interativas para aprimorar a compreensão dos consumidores sobre os produtos. O carrinho de compras é otimizado para uma gestão fácil e intuitiva, enquanto a atualização automática do estoque garante que os níveis estejam sempre precisos, proporcionando uma experiência de compra online eficiente e tranquila.
 
 ### Empresas
 ## Endpoint `POST /enterprise/register`
@@ -124,7 +125,7 @@ Content-Type: application/json
 ## Endpoint `PATCH /enterprise/addcolaborator`
 
 ### Descrição
-Adiciona um colaborador à empresa com a função de administrador. É necessário fornecer o nome completo (fullname) e CPF do colaborador, além do token de autenticação da empresa.
+Adiciona um colaborador à empresa. É necessário fornecer o nome completo (fullname) e CPF do colaborador, além do token de autenticação da empresa.
 
 ### Parâmetros necessários
 
@@ -149,7 +150,7 @@ Content-Type: application/json
 
 * **200 OK**: O colaborador foi adicionado com sucesso.  
 
-* **400 Bad Request**: Erro nos parâmetros fornecidos. Por exemplo: O usuário não é administrador e não pode ser adicionado.
+* **404 Not Found**: Erro nos parâmetros fornecidos. Por exemplo: O usuário não encontrado.
 
 * **401 Unauthorized**: Token inválido ou ausente, ou senha incorreta. Indica que o token fornecido não é válido, não foi enviado ou a senha fornecida não confere.  
 
