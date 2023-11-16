@@ -54,7 +54,8 @@ Este endpoint é responsável por cadastrar uma nova empresa no sistema.
   "confirmPassword": "senha123",
   "phone": "123456789"
 }
-Respostas
+```
+### Respostas
 200 OK: O cadastro foi realizado com sucesso. Retorna informações adicionais, como o ID da empresa.
 {
   "message": "Empresa cadastrada!"
@@ -85,7 +86,8 @@ Este endpoint realiza o login de uma empresa existente no sistema.
   "email": "empresa@email.com",
   "password": "senha123"
 }
-Respostas
+```
+### Respostas
 200 OK: O login foi realizado com sucesso. Retorna informações adicionais, como o token da empresa.
 {
   "message": "Empresa logada!",
@@ -116,11 +118,13 @@ Este endpoint deleta a empresa cadastrada com base no token de autenticação fo
 DELETE /enterprise/delete
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Content-Type: application/json
-
+```
+```json
 {
-  "password": "senha_atual_da_empresa"
+  "password": "senha123"
 }
-Respostas
+```
+### Respostas
 200 OK: A empresa foi deletada com sucesso.
 {
   "message": "Empresa excluída!"
