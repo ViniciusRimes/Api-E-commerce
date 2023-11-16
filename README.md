@@ -1287,6 +1287,31 @@ Crie um arquivo .env no diretório raiz do projeto e defina as variáveis de amb
     ```bash
     npm start
     ```
+6. Instalação do MySQL no Windows
+
+6.1. **Baixe o MySQL Installer:**
+   - Acesse o [site oficial do MySQL](https://dev.mysql.com/downloads/installer/).
+   - Clique no botão "Download" para obter o MySQL Installer.
+
+6.2. **Execute o MySQL Installer:**
+   - Após o download, execute o arquivo do MySQL Installer que você baixou.
+   - O instalador permitirá que você escolha entre a [instalação completa](https://dev.mysql.com/downloads/installer/) (recomendada) ou uma [instalação personalizada](https://dev.mysql.com/doc/refman/8.0/en/windows-install-custom.html), onde você pode selecionar componentes específicos.
+
+6.3. **Escolha do Tipo de Instalação:**
+   - Selecione "Server only" para instalar apenas o [MySQL Server](https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/), que é geralmente suficiente para o desenvolvimento.
+   - Se estiver desenvolvendo em Node.js, também pode ser útil instalar o [MySQL Workbench](https://dev.mysql.com/doc/workbench/en/), que fornece uma interface gráfica para gerenciar seu banco de dados.
+
+6.4. **Configuração do Servidor MySQL:**
+   - Durante o processo de instalação, você será solicitado a configurar o servidor MySQL.
+   - Escolha a opção "[Standalone MySQL Server](https://dev.mysql.com/doc/refman/8.0/en/windows-installation-launcher-options.html)" e siga as instruções para configurar a senha do usuário "root". Lembre-se dessa senha, pois será usada para acessar o MySQL posteriormente.
+
+6.5. **Conclua a Instalação:**
+   - Continue seguindo as instruções do instalador até a [conclusão do processo](https://dev.mysql.com/doc/refman/8.0/en/windows-installation-completing.html).
+   - O instalador irá configurar o MySQL Server como um [serviço do Windows](https://dev.mysql.com/doc/mysql-windows-excerpt/8.0/en/windows-start-service.html), o que significa que ele será iniciado automaticamente com o sistema.
+
+6.6. **Verifique a Instalação:**
+   - Abra o [MySQL Workbench](https://dev.mysql.com/doc/workbench/en/) (se instalado) para verificar se você pode se conectar ao servidor MySQL.
+
 ## Contribuindo para a E-commerce API
 
 Agradecemos pelo seu interesse em contribuir para a E-commerce API! Sua colaboração é crucial para melhorar nossa plataforma. Abaixo estão algumas maneiras de começar:
