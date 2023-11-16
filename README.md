@@ -129,14 +129,20 @@ Content-Type: application/json
 {
   "message": "Empresa excluída!"
 }
+
+
 400 Bad Request: Erro nos parâmetros fornecidos. Pode incluir uma mensagem de erro para indicar o problema específico.
 {
   "message": "Senha incorreta."
 }
+
+
 401 Unauthorized: Token inválido ou ausente, ou senha incorreta. Indica que o token fornecido não é válido, não foi enviado ou a senha fornecida não confere.
 {
   "message": "Token não encontrado ou inválido!"
 }
+
+
 500 Internal Server Error: Erro interno no servidor. Retorna uma mensagem de erro genérica.
 {
   "message": "Erro em processar a sua solicitação",
